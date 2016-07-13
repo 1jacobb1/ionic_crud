@@ -1,0 +1,23 @@
+<ion-view view-title="Feeds">
+  <ion-content ng-controller="FeedsCtrl">
+    <div class="row responsive-lg">
+      <ion-list>
+        <div class="list card"  ng-repeat="feed in feeds" href="#/tab/feed/{{feed.id}}">
+          <div class="item item-body">
+            <div class="article-image">
+              <img class="full-image" src="{{feed.images.cover}}">
+            </div>
+            <p>
+              {{feed.caption}}
+            </p>
+            <p>
+              <a href="javascript:void(0)" class="con-counts ion-ios-star-outline"> {{feed.votes.count}}</a>
+              <a href="#/tab/feed/{{feed.id}}" class="con-counts ion-ios-chatbubble-outline"> {{feed.comments.count}}</a>
+            </p>
+          </div>
+        </div>
+      </ion-list>
+    </div>
+    <ion-infinite-scroll on-infinite="loadMore()" distance="3%"></ion-infinite-scroll>
+  </ion-content>
+</ion-view>
