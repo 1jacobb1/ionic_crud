@@ -2,10 +2,10 @@
   <ion-content ng-controller="FeedsCtrl">
     <div class="row responsive-lg">
       <ion-list>
-        <div class="list card"  ng-repeat="feed in feeds" href="#/tab/feed/{{feed.id}}">
+        <div class="list card"  ng-repeat="feed in feeds" >
           <div class="item item-body">
             <div class="article-image">
-              <img class="full-image" src="{{feed.images.cover}}">
+              <a href="#/tab/feed/{{feed.id}}"><img class="full-image" src="{{feed.images.cover}}"  ></a>
             </div>
             <p>
               {{feed.caption}}

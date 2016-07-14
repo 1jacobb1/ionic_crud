@@ -12,3 +12,17 @@ img {
 	color: #575757;
 	border: 1px solid rgb(198, 199, 198);
 }
+
+.logo-center {
+	margin-top: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	height: 100px;
+	width: 100px;
+}
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+}

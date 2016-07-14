@@ -1,22 +1,5 @@
 angular.module('starter.services', [])
 
-/*.factory('Feeds', function(){
-  var feeds = [];
-  var url = "https://nativecamp.net/api/teachers/search";
-  return $http({
-    url: url,
-    method: "POST",
-    data: JSON.stringify({"users_api_token": "581883db89f901621a96e098b69a2ccd"})
-  })
-  .then(function(response){
-    console.log(response);
-    feeds = response;
-  })
-  .catch(function(err){
-    console.log(err);
-  })
-})*/
-
 .factory('Feeds', function($http){
   var func = {};
   func.getFeeds = function(page, cb){
