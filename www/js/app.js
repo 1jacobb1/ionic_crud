@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope, $state) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -21,6 +21,32 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       StatusBar.styleDefault();
     }
   });
+
+  $rootScope.isLoggedIn = function(){
+    var data = {
+      isLoggedIn: false
+    };
+    var myToken = localStorage.getItem("token");
+    data.isLoggedIn = myToken ? true : false;
+    data.myToken = myToken;
+    return data;
+  };
+
+  $rootScope.user = {};
+
+  $rootScope.checkSession = function() {
+    var isLoggedIn = $rootScope.isLoggedIn();
+    if (!isLoggedIn.isLoggedIn){
+      $rootScope.logout();
+    }
+  };
+
+  $rootScope.logout = function(){
+    var isLoggedIn = $rootScope.isLoggedIn();
+    localStorage.setItem("token", "");
+    $state.go('login', {});
+  };
+
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {

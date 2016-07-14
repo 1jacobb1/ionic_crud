@@ -1,5 +1,7 @@
 <ion-view view-title="Feeds">
   <ion-content ng-controller="FeedsCtrl">
+
+    <ion-refresher on-refresh="doRefresh()"></ion-refresher>
     <div class="row responsive-lg">
       <ion-list>
         <div class="list card"  ng-repeat="feed in feeds" >
@@ -7,9 +9,7 @@
             <div class="article-image">
               <a href="#/tab/feed/{{feed.id}}"><img class="full-image" src="{{feed.images.cover}}"  ></a>
             </div>
-            <p>
-              {{feed.caption}}
-            </p>
+            <p>{{feed.caption}}</p>
             <p>
               <a href="javascript:void(0)" class="con-counts ion-ios-star-outline"> {{feed.votes.count}}</a>
               <a href="#/tab/feed/{{feed.id}}" class="con-counts ion-ios-chatbubble-outline"> {{feed.comments.count}}</a>
