@@ -42,8 +42,9 @@ angular.module('starter.controllers', [])
     $rootScope.checkSession();
   });
 })
+
 // feeds controller
-.controller('FeedsCtrl', function($scope, $rootScope, Feeds){
+.controller('FeedsCtrl', function($scope, $rootScope, $ionicPopup, Feeds){
 
   $scope.$on('$ionicView.enter', function(e) {
     // check session
@@ -52,8 +53,15 @@ angular.module('starter.controllers', [])
 
   $scope.hasNext = null;
   $scope.feeds = [];
+  $scope.hasInternetConnection = true;
   function getData(){
+    $scope.hasInternetConnection = true;
     Feeds.getFeeds($scope.hasNext, function(data){
+      if(data.errorContent == "no_internet") {
+        $scope.showMe();
+        $scope.hasInternetConnection = false;
+        return;
+      }
       $scope.hasNext = data.data.paging.next;
       if ($scope.hasNext !== null){
         $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -68,11 +76,29 @@ angular.module('starter.controllers', [])
 
   $scope.doRefresh = function(){
     Feeds.getFeeds("", function(data){
+      if(data.errorContent == "no_internet") {
+        $scope.hasInternetConnection = false;
+        $scope.showMe();
+        return; 
+      }
+      $scope.hasInternetConnection = true;
       $scope.$broadcast('scroll.refreshComplete');
       $scope.newFeeds = data.data.data;
       $scope.feeds = $scope.newFeeds;
     });
   };
+
+  $scope.showMe = function(){
+    var alertPopup = $ionicPopup.alert({
+     title: 'Network Error!',
+     template: 'Please check your internet connection'
+   });
+
+   alertPopup.then(function(res) {
+     console.log('Thank you for not eating my delicious ice cream cone');
+   });
+  };
+
 })
 // feeds detail controller
 .controller('FeedDetailCtrl', function($scope, $stateParams, Feeds){

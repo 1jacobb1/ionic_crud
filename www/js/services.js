@@ -13,7 +13,10 @@ angular.module('starter.services', [])
       cb(res);
     })
     .catch(function(err){
-      console.log(err);
+      if(err.status == -1) {
+        err.errorContent = "no_internet";
+      }
+      cb(err);
     });
   };
   return func;
